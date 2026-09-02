@@ -33,11 +33,14 @@ type SendEmailArgs = {
 
 /** Sends one email through Brevo's SMTP relay. Throws on failure — callers decide how to handle that. */
 export async function sendEmail({ to, subject, html, text }: SendEmailArgs): Promise<void> {
-  const from = process.env.BREVO_SENDER_EMAIL
+  const fromEmail = process.env.BREVO_SENDER_EMAIL
+  const fromName = process.env.BREVO_SENDER_NAME
 
-  if (!from) {
+  if (!fromEmail) {
     throw new Error('BREVO_SENDER_EMAIL is not configured.')
   }
+
+  const from = fromName ? { name: fromName, address: fromEmail } : fromEmail
 
   await getTransporter().sendMail({ from, to, subject, html, text })
 }
