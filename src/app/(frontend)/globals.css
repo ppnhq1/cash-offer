@@ -1,0 +1,323 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin 'daisyui' {
+  themes: false;
+}
+
+@config '../../../tailwind.config.mjs';
+
+@custom-variant dark (&:is([data-theme='dark'] *));
+@custom-variant sm (@media (width >= theme(--breakpoint-sm)));
+@custom-variant md (@media (width >= theme(--breakpoint-md)));
+@custom-variant lg (@media (width >= theme(--breakpoint-lg)));
+@custom-variant xl (@media (width >= theme(--breakpoint-xl)));
+@custom-variant 2xl (@media (width >= theme(--breakpoint-2xl)));
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: unset;
+    font-size: unset;
+  }
+}
+
+@plugin "@tailwindcss/typography";
+
+@source inline("lg:col-span-4");
+@source inline("lg:col-span-6");
+@source inline("lg:col-span-8");
+@source inline("lg:col-span-12");
+@source inline("border-border");
+@source inline("bg-card");
+@source inline("border-error");
+@source inline("bg-error/30");
+@source inline("border-success");
+@source inline("bg-success/30");
+@source inline("border-warning");
+@source inline("bg-warning/30");
+
+@theme {
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 86rem;
+  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans);
+}
+
+/*
+ * DaisyUI themes — named "light" / "dark" to match this project's existing
+ * theme toggle, which sets data-theme="light"|"dark" on <html> (see
+ * src/providers/Theme). DaisyUI reads that same attribute automatically.
+ *
+ * Brand palette (cherry-blossom / light-coral / sweet-peony / dark-magenta /
+ * midnight-violet) is mapped below into daisyUI's semantic tokens only —
+ * per Blueprint's theme rules, brand colors live in theme blocks as semantic
+ * tokens (primary/secondary/accent/etc.), not as standalone utility colors.
+ */
+@plugin 'daisyui/theme' {
+  name: 'light';
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+  --color-base-100: #ffffff;
+  --color-base-200: #fde8e9;
+  --color-base-300: #fad1d4;
+  --color-base-content: #200305;
+  --color-primary: #e71826;
+  --color-primary-content: #ffffff;
+  --color-secondary: #d22d77;
+  --color-secondary-content: #ffffff;
+  --color-accent: #bd3dc2;
+  --color-accent-content: #ffffff;
+  --color-neutral: #1a0024;
+  --color-neutral-content: #f8e5ff;
+  --color-info: #0284c7;
+  --color-info-content: #ffffff;
+  --color-success: #15803d;
+  --color-success-content: #ffffff;
+  --color-warning: #b45309;
+  --color-warning-content: #ffffff;
+  --color-error: #b9131e;
+  --color-error-content: #ffffff;
+  --radius-selector: 0.5rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+  --size-selector: 0.3125rem;
+  --size-field: 0.3125rem;
+  --border: 2px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@plugin 'daisyui/theme' {
+  name: 'dark';
+  default: false;
+  prefersdark: false;
+  color-scheme: dark;
+  --color-base-100: #200305;
+  --color-base-200: #2e0508;
+  --color-base-300: #5c0a0f;
+  --color-base-content: #fde8e9;
+  --color-primary: #ec4651;
+  --color-primary-content: #200305;
+  --color-secondary: #e481ae;
+  --color-secondary-content: #1d0611;
+  --color-accent: #d88bda;
+  --color-accent-content: #260c27;
+  --color-neutral: #1a0024;
+  --color-neutral-content: #f8e5ff;
+  --color-info: #38bdf8;
+  --color-info-content: #082f49;
+  --color-success: #4ade80;
+  --color-success-content: #052e16;
+  --color-warning: #fbbf24;
+  --color-warning-content: #451a03;
+  --color-error: #f0757d;
+  --color-error-content: #2e0508;
+  --radius-selector: 0.5rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+  --size-selector: 0.3125rem;
+  --size-field: 0.3125rem;
+  --border: 2px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@layer utilities {
+  .container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @variant sm {
+    .container {
+      max-width: var(--breakpoint-sm);
+    }
+  }
+
+  @variant md {
+    .container {
+      max-width: var(--breakpoint-md);
+      padding-inline: 2rem;
+    }
+  }
+
+  @variant lg {
+    .container {
+      max-width: var(--breakpoint-lg);
+    }
+  }
+
+  @variant xl {
+    .container {
+      max-width: var(--breakpoint-xl);
+    }
+  }
+
+  @variant 2xl {
+    .container {
+      max-width: var(--breakpoint-2xl);
+    }
+  }
+}
+
+:root {
+  --background: oklch(100% 0 0deg);
+  --foreground: oklch(14.5% 0 0deg);
+  --card: oklch(96.5% 0.005 265deg);
+  --card-foreground: oklch(14.5% 0 0deg);
+  --popover: oklch(100% 0 0deg);
+  --popover-foreground: oklch(14.5% 0 0deg);
+  --primary: oklch(20.5% 0 0deg);
+  --primary-foreground: oklch(98.5% 0 0deg);
+  --secondary: oklch(97% 0 0deg);
+  --secondary-foreground: oklch(20.5% 0 0deg);
+  --muted: oklch(97% 0 0deg);
+  --muted-foreground: oklch(55.6% 0 0deg);
+  --accent: oklch(97% 0 0deg);
+  --accent-foreground: oklch(20.5% 0 0deg);
+  --destructive: oklch(57.7% 0.245 27.325deg);
+  --destructive-foreground: oklch(57.7% 0.245 27.325deg);
+  /* Named --border-color, not --border: daisyUI's own --border (theme
+     blocks above) is a border WIDTH used in component calc()s (e.g. badge
+     padding-inline). A same-named shadcn --border color here would win the
+     cascade (this block is later in the file) and silently break every
+     calc() that reads daisyUI's --border, since a color can't be subtracted
+     from a length — the calc() just goes invalid and padding collapses to 0. */
+  --border-color: oklch(92.2% 0 0deg);
+  --input: oklch(92.2% 0 0deg);
+  --ring: oklch(70.8% 0 0deg);
+  --chart-1: oklch(64.6% 0.222 41.116deg);
+  --chart-2: oklch(60% 0.118 184.704deg);
+  --chart-3: oklch(39.8% 0.07 227.392deg);
+  --chart-4: oklch(82.8% 0.189 84.429deg);
+  --chart-5: oklch(76.9% 0.188 70.08deg);
+  --radius: 0.625rem;
+  --sidebar: oklch(98.5% 0 0deg);
+  --sidebar-foreground: oklch(14.5% 0 0deg);
+  --sidebar-primary: oklch(20.5% 0 0deg);
+  --sidebar-primary-foreground: oklch(98.5% 0 0deg);
+  --sidebar-accent: oklch(97% 0 0deg);
+  --sidebar-accent-foreground: oklch(20.5% 0 0deg);
+  --sidebar-border: oklch(92.2% 0 0deg);
+  --sidebar-ring: oklch(70.8% 0 0deg);
+  --success: oklch(78% 0.08 200deg);
+  --warning: oklch(89% 0.1 75deg);
+  --error: oklch(75% 0.15 25deg);
+}
+
+[data-theme='dark'] {
+  --background: oklch(14.5% 0 0deg);
+  --foreground: oklch(98.5% 0 0deg);
+  --card: oklch(17% 0 0deg);
+  --card-foreground: oklch(98.5% 0 0deg);
+  --popover: oklch(14.5% 0 0deg);
+  --popover-foreground: oklch(98.5% 0 0deg);
+  --primary: oklch(98.5% 0 0deg);
+  --primary-foreground: oklch(20.5% 0 0deg);
+  --secondary: oklch(26.9% 0 0deg);
+  --secondary-foreground: oklch(98.5% 0 0deg);
+  --muted: oklch(26.9% 0 0deg);
+  --muted-foreground: oklch(70.8% 0 0deg);
+  --accent: oklch(26.9% 0 0deg);
+  --accent-foreground: oklch(98.5% 0 0deg);
+  --destructive: oklch(39.6% 0.141 25.723deg);
+  --destructive-foreground: oklch(63.7% 0.237 25.331deg);
+  --border-color: oklch(26.9% 0 0deg);
+  --input: oklch(26.9% 0 0deg);
+  --ring: oklch(43.9% 0 0deg);
+  --chart-1: oklch(48.8% 0.243 264.376deg);
+  --chart-2: oklch(69.6% 0.17 162.48deg);
+  --chart-3: oklch(76.9% 0.188 70.08deg);
+  --chart-4: oklch(62.7% 0.265 303.9deg);
+  --chart-5: oklch(64.5% 0.246 16.439deg);
+  --sidebar: oklch(20.5% 0 0deg);
+  --sidebar-foreground: oklch(98.5% 0 0deg);
+  --sidebar-primary: oklch(48.8% 0.243 264.376deg);
+  --sidebar-primary-foreground: oklch(98.5% 0 0deg);
+  --sidebar-accent: oklch(26.9% 0 0deg);
+  --sidebar-accent-foreground: oklch(98.5% 0 0deg);
+  --sidebar-border: oklch(26.9% 0 0deg);
+  --sidebar-ring: oklch(43.9% 0 0deg);
+  --success: oklch(28% 0.1 200deg);
+  --warning: oklch(35% 0.08 70deg);
+  --error: oklch(45% 0.1 25deg);
+}
+
+@theme inline {
+  /*
+   * NOTE: --color-primary/-secondary/-accent/-success/-warning/-error are
+   * intentionally NOT re-mapped here (unlike the rest of this legacy shadcn
+   * token block). Those exact names are also defined by the daisyUI theme
+   * blocks above with our brand palette; if redefined here they would win
+   * the CSS cascade (this block appears later in the file) and silently
+   * override every daisyUI bg-primary/btn-primary/etc. with shadcn's
+   * grayscale values. The *-foreground pairs stay mapped since they're used
+   * by the still-present shadcn Button/Card/Select primitives elsewhere.
+   */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border-color);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  /* --color-success/-warning/-error: intentionally omitted — see note above. */
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    /* Larger base type size — many of our sellers are older homeowners,
+       so we default to noticeably bigger, easier-to-read text everywhere. */
+    @apply text-[112.5%];
+  }
+  body {
+    @apply bg-base-100 text-base-content min-h-[100vh] flex flex-col leading-relaxed;
+  }
+}
+
+html {
+  opacity: 0;
+}
+
+html[data-theme='dark'],
+html[data-theme='light'] {
+  opacity: initial;
+}
