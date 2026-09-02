@@ -429,6 +429,7 @@ export const LeadCaptureCard: React.FC<Props> = ({
         { field: 'phone', value: storedPhone },
         { field: 'email', value: values.email },
         { field: 'smsConsent', value: smsConsent },
+        { field: 'sourcePage', value: window.location.href },
       ]
 
       const submitForm = async () => {
@@ -444,33 +445,11 @@ export const LeadCaptureCard: React.FC<Props> = ({
             setIsLoading(false)
             return
           }
+          // The confirmation SMS and welcome/notification emails are sent
+          // server-side by a Payload hook once this submission is saved —
+          // see src/hooks/notifyLead.ts. There's nothing more to trigger here.
           setHasSubmitted(true)
           setIsLoading(false)
-
-          if (smsConsent) {
-            fetch(`${getClientSideURL()}/api/send-lead-sms`, {
-              body: JSON.stringify({ phone: storedPhone, smsConsent }),
-              headers: { 'Content-Type': 'application/json' },
-              method: 'POST',
-            }).catch(() => {
-              // Best-effort confirmation text — the lead is already captured
-              // above regardless of whether this notification goes out.
-            })
-          }
-
-          fetch(`${getClientSideURL()}/api/send-lead-emails`, {
-            body: JSON.stringify({
-              address: values.address,
-              phone: formatPhoneDisplay(values.phone),
-              email: values.email,
-              sourcePage: window.location.href,
-            }),
-            headers: { 'Content-Type': 'application/json' },
-            method: 'POST',
-          }).catch(() => {
-            // Best-effort welcome + lead-notification emails — same as above,
-            // the lead is already captured regardless of whether these send.
-          })
         } catch {
           setError('Something went wrong. Please call us instead.')
           setIsLoading(false)
