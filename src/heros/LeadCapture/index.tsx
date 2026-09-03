@@ -15,11 +15,7 @@ export const LeadCaptureHero: React.FC<LeadCaptureHeroType> = ({ richText, badge
 
   return (
     <div className="hero -mt-16 bg-neutral text-neutral-content">
-      <div className="hero-content w-full max-w-6xl flex-col gap-10 py-12 md:py-20 lg:flex-row-reverse lg:items-center lg:gap-16">
-        <div className="w-full shrink-0 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:delay-150 motion-safe:duration-700 motion-safe:fill-mode-both lg:w-auto">
-          <LeadCaptureCard formID={formDoc?.id} />
-        </div>
-
+      <div className="hero-content w-full max-w-6xl flex-col gap-10 py-12 md:py-20 lg:flex-row lg:items-center lg:gap-16">
         <div className="min-w-0 flex-1 text-center motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-700 motion-safe:fill-mode-both lg:text-left">
           {badgeText && (
             <div className="badge badge-lg badge-soft mb-5 gap-2 py-4">
@@ -35,6 +31,10 @@ export const LeadCaptureHero: React.FC<LeadCaptureHeroType> = ({ richText, badge
               enableProse={false}
             />
           )}
+        </div>
+
+        <div className="w-full shrink-0 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:delay-150 motion-safe:duration-700 motion-safe:fill-mode-both lg:w-auto">
+          <LeadCaptureCard formID={formDoc?.id} />
         </div>
       </div>
     </div>

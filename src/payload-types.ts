@@ -881,7 +881,7 @@ export interface HowItWorksBlock {
  */
 export interface IconGridBlock {
   /**
-   * Use "Carousel" for a second Icon Grid section on the same page so it reads differently from the first.
+   * Use "Continuous scroll loop" for a second Icon Grid section on the same page so it reads differently from the first.
    */
   layout?: ('grid' | 'carousel') | null;
   /**
