@@ -78,11 +78,14 @@ export default async function LocationsHubPage() {
   )
 }
 
-export const metadata: Metadata = {
-  title: 'Where We Buy Houses | RVA Cash Home Buyers',
-  description: 'See every city and area we buy houses for cash in.',
-  openGraph: mergeOpenGraph({
-    title: 'Where We Buy Houses | RVA Cash Home Buyers',
-    description: 'See every city and area we buy houses for cash in.',
-  }),
+export async function generateMetadata(): Promise<Metadata> {
+  const business = await getCachedGlobal('business', 0)()
+  const title = `Where We Buy Houses | ${business?.businessName || 'RVA Cash Home Buyers'}`
+  const description = 'See every city and area we buy houses for cash in.'
+
+  return {
+    title,
+    description,
+    openGraph: mergeOpenGraph({ title, description }),
+  }
 }

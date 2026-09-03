@@ -10,7 +10,9 @@ import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { LeadCaptureModal } from '@/components/LeadCaptureModal'
 import { Providers } from '@/providers'
+import { BusinessProvider } from '@/providers/Business'
 import { InitTheme } from '@/providers/Theme/InitTheme'
+import { getCachedGlobal } from '@/utilities/getGlobals'
 import { getCachedLeadFormId } from '@/utilities/getLeadFormId'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
@@ -21,6 +23,7 @@ import { getServerSideURL } from '@/utilities/getURL'
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
   const leadFormId = await getCachedLeadFormId()()
+  const business = await getCachedGlobal('business', 0)()
 
   return (
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
@@ -31,16 +34,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
+          <BusinessProvider businessName={business?.businessName}>
+            <AdminBar
+              adminBarProps={{
+                preview: isEnabled,
+              }}
+            />
 
-          <Header />
-          {children}
-          <Footer />
-          <LeadCaptureModal formID={leadFormId} />
+            <Header />
+            {children}
+            <Footer />
+            <LeadCaptureModal formID={leadFormId} />
+          </BusinessProvider>
         </Providers>
       </body>
     </html>

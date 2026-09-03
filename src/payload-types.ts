@@ -858,6 +858,10 @@ export interface FAQBlock {
  * via the `definition` "HowItWorksBlock".
  */
 export interface HowItWorksBlock {
+  /**
+   * Use "Timeline" for a second How It Works section on the same page so it reads differently from the first.
+   */
+  layout?: ('numbered' | 'timeline') | null;
   eyebrow?: string | null;
   heading: string;
   steps?:
@@ -876,6 +880,10 @@ export interface HowItWorksBlock {
  * via the `definition` "IconGridBlock".
  */
 export interface IconGridBlock {
+  /**
+   * Use "Carousel" for a second Icon Grid section on the same page so it reads differently from the first.
+   */
+  layout?: ('grid' | 'carousel') | null;
   /**
    * Short label above the heading, e.g. "IN WHICH SITUATIONS?"
    */
@@ -1557,6 +1565,7 @@ export interface FAQBlockSelect<T extends boolean = true> {
  * via the `definition` "HowItWorksBlock_select".
  */
 export interface HowItWorksBlockSelect<T extends boolean = true> {
+  layout?: T;
   eyebrow?: T;
   heading?: T;
   steps?:
@@ -1574,6 +1583,7 @@ export interface HowItWorksBlockSelect<T extends boolean = true> {
  * via the `definition` "IconGridBlock_select".
  */
 export interface IconGridBlockSelect<T extends boolean = true> {
+  layout?: T;
   eyebrow?: T;
   heading?: T;
   subheading?: T;

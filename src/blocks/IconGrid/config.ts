@@ -39,6 +39,19 @@ export const IconGrid: Block = {
   },
   fields: [
     {
+      name: 'layout',
+      type: 'select',
+      defaultValue: 'grid',
+      options: [
+        { label: 'Grid', value: 'grid' },
+        { label: 'Carousel', value: 'carousel' },
+      ],
+      admin: {
+        description:
+          'Use "Carousel" for a second Icon Grid section on the same page so it reads differently from the first.',
+      },
+    },
+    {
       name: 'eyebrow',
       type: 'text',
       admin: {

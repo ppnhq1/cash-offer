@@ -437,6 +437,7 @@ async function run() {
       },
       {
         blockType: 'iconGrid' as const,
+        layout: 'carousel' as const,
         eyebrow: 'SKIP THE REPAIRS',
         heading: 'Selling Made Simple',
         columns: '3' as const,
@@ -753,6 +754,7 @@ async function run() {
       },
       {
         blockType: 'howItWorks' as const,
+        layout: 'timeline' as const,
         eyebrow: 'IN DETAIL',
         heading: 'How The Process Works In Detail',
         steps: detailedSteps,

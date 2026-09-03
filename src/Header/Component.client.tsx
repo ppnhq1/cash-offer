@@ -15,10 +15,11 @@ import { HeaderNav } from './Nav'
 interface HeaderClientProps {
   data: Header
   phone?: string | null
+  businessName?: string | null
   locations: LocationNavItem[]
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data, phone, locations }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, phone, businessName, locations }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
@@ -58,7 +59,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, phone, locatio
       <div className="container mx-auto flex flex-col gap-3 px-4 py-3 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center justify-between gap-3">
           <Link className="text-base-content shrink-0" href="/">
-            <Logo loading="eager" priority="high" />
+            <Logo businessName={businessName} loading="eager" priority="high" />
           </Link>
 
           {telHref && (
