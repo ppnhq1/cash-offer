@@ -20,6 +20,11 @@ import { getServerSideURL } from './utilities/getURL'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const trustedOrigins = [
+  getServerSideURL(),
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+].filter((origin): origin is string => Boolean(origin))
+
 export default buildConfig({
   admin: {
     components: {
@@ -65,11 +70,17 @@ export default buildConfig({
     },
   }),
   collections: [Pages, Posts, Locations, Media, Categories, Users],
-  cors: [getServerSideURL()].filter(Boolean),
+  // Vercel sets VERCEL_URL to the unique origin of the current deployment
+  // (preview or production), which differs from NEXT_PUBLIC_SERVER_URL (the
+  // stable production domain) on every preview deployment. Without it here,
+  // admin panel writes from a preview deployment get silently rejected: the
+  // request's Origin header won't match the allow-list, so Payload drops the
+  // auth cookie and every write fails access control as if logged out.
+  cors: trustedOrigins,
   // An empty csrf list (Payload's default when unset) disables CSRF
   // checking entirely, not the other way around — it must be explicitly
   // scoped to this site's own origin(s) to actually enforce anything.
-  csrf: [getServerSideURL()].filter(Boolean),
+  csrf: trustedOrigins,
   globals: [Header, Footer, Business],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
