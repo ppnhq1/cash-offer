@@ -7,8 +7,7 @@ import type { LocationNavItem } from '@/utilities/getLocationsNav'
 type Props = {
   label: string
   locations: LocationNavItem[]
-  /** Distinct per rendered nav instance (desktop vs. mobile) so popover ids and CSS anchor names never collide. */
-  instanceId: 'desktop' | 'mobile'
+  instanceId: 'desktop' | 'drawer'
 }
 
 const MegaMenuPanel: React.FC<{ locations: LocationNavItem[] }> = ({ locations }) => (
@@ -43,7 +42,7 @@ const MegaMenuPanel: React.FC<{ locations: LocationNavItem[] }> = ({ locations }
 
 export const LocationsMegaMenu: React.FC<Props> = ({ label, locations, instanceId }) => {
   if (locations.length === 0) {
-    return (
+    const fallbackLink = (
       <Link
         href="/locations"
         className="flex items-center gap-1 text-base font-semibold text-base-content no-underline hover:underline"
@@ -51,28 +50,35 @@ export const LocationsMegaMenu: React.FC<Props> = ({ label, locations, instanceI
         {label}
       </Link>
     )
+    return instanceId === 'drawer' ? <li>{fallbackLink}</li> : fallbackLink
   }
 
-  if (instanceId === 'mobile') {
+  if (instanceId === 'drawer') {
     return (
-      <>
-        <button
-          type="button"
-          className="flex items-center gap-1 text-base font-semibold text-base-content no-underline hover:underline [anchor-name:--locations-megamenu-mobile]"
-          popoverTarget="locations-megamenu-mobile"
-        >
-          {label}
-          <ChevronDown className="size-4" aria-hidden="true" />
-        </button>
-
-        <div
-          className="dropdown dropdown-center card card-sm z-30 mt-3 w-[min(90vw,44rem)] bg-base-100 shadow-xl [position-anchor:--locations-megamenu-mobile]"
-          popover="auto"
-          id="locations-megamenu-mobile"
-        >
-          <MegaMenuPanel locations={locations} />
-        </div>
-      </>
+      <li>
+        <details>
+          <summary className="text-base font-semibold">{label}</summary>
+          <ul>
+            {locations.map((location) => (
+              <li key={location.slug}>
+                <Link href={`/locations/${location.slug}`} className="flex items-center gap-2">
+                  <MapPin className="size-4 shrink-0 text-primary" aria-hidden="true" />
+                  {location.cityName}, {location.stateAbbr}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="/locations"
+                className="flex items-center gap-1.5 font-semibold text-primary"
+              >
+                View All Locations
+                <MoveRight className="size-4" aria-hidden="true" />
+              </Link>
+            </li>
+          </ul>
+        </details>
+      </li>
     )
   }
 
