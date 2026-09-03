@@ -114,7 +114,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
               </LeadModalTrigger>
             </div>
 
-            <LeadModalTrigger className="btn btn-primary btn-lg w-full transition-transform duration-200 hover:scale-[1.02] active:scale-[0.97] motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100 lg:hidden">
+            <LeadModalTrigger className="btn btn-primary w-full transition-transform duration-200 hover:scale-[1.02] active:scale-[0.97] motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100 lg:hidden">
               Sell My House Fast
             </LeadModalTrigger>
           </div>

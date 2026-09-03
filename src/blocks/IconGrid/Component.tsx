@@ -1,7 +1,6 @@
 import React from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@/utilities/ui'
-import { CarouselNavButton } from './CarouselNavButton'
+import { MarqueeTrack } from './MarqueeTrack'
 import {
   AlertTriangle,
   Ban,
@@ -112,53 +111,59 @@ const GridLayout: React.FC<{ items: Item[]; columns?: IconGridBlockProps['column
   </div>
 )
 
-const CarouselLayout: React.FC<{ items: Item[] }> = ({ items }) => {
-  const id = React.useId().replace(/:/g, '')
+const LoopLayout: React.FC<{ items: Item[]; columns?: IconGridBlockProps['columns'] }> = ({
+  items,
+  columns,
+}) => {
+  const track = [...items, ...items]
 
   return (
     <div className="relative">
-      <div className="carousel carousel-center w-full gap-6 rounded-box">
-        {items.map((item, index) => {
-          const Icon = item.icon ? icons[item.icon] : null
-          const itemId = `${id}-${index}`
-          const prevId = `${id}-${(index - 1 + items.length) % items.length}`
-          const nextId = `${id}-${(index + 1) % items.length}`
+      <div className="relative overflow-hidden motion-reduce:hidden">
+        <MarqueeTrack>
+          {track.map((item, index) => {
+            const Icon = item.icon ? icons[item.icon] : null
+            const swatch = swatches[index % items.length % swatches.length]
+            const isDuplicate = index >= items.length
 
-          return (
-            <div
-              key={index}
-              id={itemId}
-              className="carousel-item card w-72 border border-base-300 bg-base-100 sm:w-80"
-            >
-              <div className="card-body">
-                {Icon && (
-                  <div
-                    className={cn(
-                      'mb-2 flex size-12 items-center justify-center rounded-full',
-                      swatches[index % swatches.length],
+            return (
+              <div key={index} aria-hidden={isDuplicate} className="hover-3d my-2 shrink-0">
+                <div className="card w-72 border border-base-300 bg-base-100 sm:w-80">
+                  <div className="card-body">
+                    {Icon && (
+                      <div
+                        className={cn(
+                          'mb-2 flex size-12 items-center justify-center rounded-full',
+                          swatch,
+                        )}
+                      >
+                        <Icon className="size-6" aria-hidden="true" />
+                      </div>
                     )}
-                  >
-                    <Icon className="size-6" aria-hidden="true" />
+                    <h3 className="card-title text-lg">{item.title}</h3>
+                    {item.description && (
+                      <p className="text-base-content/80">{item.description}</p>
+                    )}
                   </div>
-                )}
-                <h3 className="card-title text-lg">{item.title}</h3>
-                {item.description && <p className="text-base-content/80">{item.description}</p>}
-                <div className="card-actions mt-2 justify-end">
-                  <CarouselNavButton
-                    targetId={prevId}
-                    label="Previous"
-                    icon={<ChevronLeft className="size-4" aria-hidden="true" />}
-                  />
-                  <CarouselNavButton
-                    targetId={nextId}
-                    label="Next"
-                    icon={<ChevronRight className="size-4" aria-hidden="true" />}
-                  />
                 </div>
+                {/* 8 empty divs required by daisyUI's hover-3d effect */}
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </MarqueeTrack>
+      </div>
+
+      {/* Static fallback for prefers-reduced-motion: no duplicated items, no animation. */}
+      <div className="hidden motion-reduce:block">
+        <GridLayout items={items} columns={columns} />
       </div>
     </div>
   )
@@ -187,7 +192,7 @@ export const IconGridBlock: React.FC<IconGridBlockProps> = ({
       </div>
 
       {layout === 'carousel' ? (
-        <CarouselLayout items={safeItems} />
+        <LoopLayout items={safeItems} columns={columns} />
       ) : (
         <GridLayout items={safeItems} columns={columns} />
       )}

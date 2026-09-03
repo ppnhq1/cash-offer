@@ -44,11 +44,11 @@ export const IconGrid: Block = {
       defaultValue: 'grid',
       options: [
         { label: 'Grid', value: 'grid' },
-        { label: 'Carousel', value: 'carousel' },
+        { label: 'Continuous scroll loop', value: 'carousel' },
       ],
       admin: {
         description:
-          'Use "Carousel" for a second Icon Grid section on the same page so it reads differently from the first.',
+          'Use "Continuous scroll loop" for a second Icon Grid section on the same page so it reads differently from the first.',
       },
     },
     {
