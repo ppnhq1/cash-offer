@@ -6,20 +6,14 @@ import type { HowItWorksBlock as HowItWorksBlockProps } from '@/payload-types'
 const TimelineLayout: React.FC<{ steps: NonNullable<HowItWorksBlockProps['steps']> }> = ({
   steps,
 }) => (
-  <ul className="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact lg:timeline-horizontal">
+  <ul className="timeline timeline-vertical timeline-snap-icon mx-auto max-w-2xl">
     {steps.map((step, index) => {
       const isFirst = index === 0
       const isLast = index === steps.length - 1
       const contentSide = index % 2 === 0 ? 'start' : 'end'
 
       const content = (
-        <div
-          className={
-            contentSide === 'start'
-              ? 'mb-10 md:mb-0 md:text-end lg:mb-10'
-              : 'md:mb-0 lg:mb-10'
-          }
-        >
+        <div className={contentSide === 'start' ? 'max-w-sm pb-8 md:text-end' : 'max-w-sm pb-8'}>
           <div className="text-lg font-bold">{step.title}</div>
           <p className="mt-1 text-base-content/80">{step.description}</p>
         </div>
@@ -30,9 +24,9 @@ const TimelineLayout: React.FC<{ steps: NonNullable<HowItWorksBlockProps['steps'
           {!isFirst && <hr className="bg-base-300" />}
           {contentSide === 'start' && <div className="timeline-start">{content}</div>}
           <div className="timeline-middle">
-            <span className="relative flex size-12 items-center justify-center">
+            <span className="relative flex size-12 shrink-0 items-center justify-center">
               <span
-                className="absolute inset-0 rounded-full bg-primary/40 motion-safe:animate-pulse motion-reduce:hidden"
+                className="absolute inset-0 rounded-full bg-primary/60 motion-safe:animate-ping motion-reduce:hidden"
                 aria-hidden="true"
               />
               <span className="relative flex size-12 items-center justify-center rounded-full bg-primary text-lg font-bold text-primary-content shadow-md">
