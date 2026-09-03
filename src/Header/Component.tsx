@@ -8,5 +8,12 @@ export async function Header() {
   const business = await getCachedGlobal('business', 0)()
   const locations = await getCachedLocationsNav()()
 
-  return <HeaderClient data={headerData} phone={business?.telephone} locations={locations} />
+  return (
+    <HeaderClient
+      data={headerData}
+      phone={business?.telephone}
+      businessName={business?.businessName}
+      locations={locations}
+    />
+  )
 }

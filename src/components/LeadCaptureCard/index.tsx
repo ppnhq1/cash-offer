@@ -3,12 +3,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { MapPin, ShieldCheck } from 'lucide-react'
 
+import { useBusiness } from '@/providers/Business'
 import { formatPhoneDisplay, normalizePhoneDigits, phoneDigitsToStored } from '@/utilities/formatPhone'
 import { getClientSideURL } from '@/utilities/getURL'
 import { loadGooglePlaces } from '@/utilities/loadGooglePlaces'
 
-const SMS_CONSENT_LABEL =
-  'I agree to receive text messages from VA Cash Offer regarding my inquiry, including follow-up messages about buying or selling my property. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase.'
+const smsConsentLabel = (businessName: string) =>
+  `I agree to receive text messages from ${businessName} regarding my inquiry, including follow-up messages about buying or selling my property. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase.`
 
 type InstanceId = 'inline' | 'modal'
 
@@ -223,6 +224,9 @@ const SmsConsentField: React.FC<{
   checked: boolean
   onChange: (checked: boolean) => void
 }> = ({ instanceId, checked, onChange }) => {
+  const { businessName } = useBusiness()
+  const label = smsConsentLabel(businessName)
+
   if (instanceId === 'modal') {
     return (
       <label className="label mt-3 items-start gap-2" htmlFor="lead-modal-sms-consent">
@@ -235,7 +239,7 @@ const SmsConsentField: React.FC<{
           onChange={(e) => onChange(e.target.checked)}
         />
         <span className="min-w-0 flex-1 whitespace-normal text-sm text-base-content/70">
-          {SMS_CONSENT_LABEL}
+          {label}
         </span>
       </label>
     )
@@ -252,7 +256,7 @@ const SmsConsentField: React.FC<{
         onChange={(e) => onChange(e.target.checked)}
       />
       <span className="min-w-0 flex-1 whitespace-normal text-sm text-base-content/70">
-        {SMS_CONSENT_LABEL}
+        {label}
       </span>
     </label>
   )

@@ -9,6 +9,19 @@ export const HowItWorks: Block = {
   },
   fields: [
     {
+      name: 'layout',
+      type: 'select',
+      defaultValue: 'numbered',
+      options: [
+        { label: 'Numbered steps (grid)', value: 'numbered' },
+        { label: 'Timeline', value: 'timeline' },
+      ],
+      admin: {
+        description:
+          'Use "Timeline" for a second How It Works section on the same page so it reads differently from the first.',
+      },
+    },
+    {
       name: 'eyebrow',
       type: 'text',
       defaultValue: 'OUR SIMPLE PROCESS',

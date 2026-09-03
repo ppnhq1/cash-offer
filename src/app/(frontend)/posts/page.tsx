@@ -3,6 +3,7 @@ import type { Metadata } from 'next/types'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
+import { getCachedGlobal } from '@/utilities/getGlobals'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -56,8 +57,9 @@ export default async function Page() {
   )
 }
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const business = await getCachedGlobal('business', 0)()
   return {
-    title: `RVA Cash Home Buyers Posts`,
+    title: `${business?.businessName || 'RVA Cash Home Buyers'} Posts`,
   }
 }
