@@ -1,6 +1,7 @@
 import React from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@/utilities/ui'
+import { CarouselNavButton } from './CarouselNavButton'
 import {
   AlertTriangle,
   Ban,
@@ -143,12 +144,16 @@ const CarouselLayout: React.FC<{ items: Item[] }> = ({ items }) => {
                 <h3 className="card-title text-lg">{item.title}</h3>
                 {item.description && <p className="text-base-content/80">{item.description}</p>}
                 <div className="card-actions mt-2 justify-end">
-                  <a href={`#${prevId}`} className="btn btn-circle btn-sm" aria-label="Previous">
-                    <ChevronLeft className="size-4" aria-hidden="true" />
-                  </a>
-                  <a href={`#${nextId}`} className="btn btn-circle btn-sm" aria-label="Next">
-                    <ChevronRight className="size-4" aria-hidden="true" />
-                  </a>
+                  <CarouselNavButton
+                    targetId={prevId}
+                    label="Previous"
+                    icon={<ChevronLeft className="size-4" aria-hidden="true" />}
+                  />
+                  <CarouselNavButton
+                    targetId={nextId}
+                    label="Next"
+                    icon={<ChevronRight className="size-4" aria-hidden="true" />}
+                  />
                 </div>
               </div>
             </div>
