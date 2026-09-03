@@ -66,6 +66,10 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Locations, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
+  // An empty csrf list (Payload's default when unset) disables CSRF
+  // checking entirely, not the other way around — it must be explicitly
+  // scoped to this site's own origin(s) to actually enforce anything.
+  csrf: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, Business],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
