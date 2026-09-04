@@ -20,8 +20,28 @@ import { getServerSideURL } from './utilities/getURL'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+// The site is reachable at both the apex and www hosts (no redirect between
+// them is configured at the DNS/Vercel level), so a logged-in admin's Origin
+// header may be either one depending on which they typed or bookmarked.
+// NEXT_PUBLIC_SERVER_URL only ever holds one of the two, so derive the
+// other — otherwise every write from the untrusted host gets its auth
+// cookie silently dropped by Payload's CSRF check, surfacing as "not
+// allowed" despite a valid session.
+const wwwVariant = (serverURL: string): string | undefined => {
+  try {
+    const url = new URL(serverURL)
+    url.hostname = url.hostname.startsWith('www.')
+      ? url.hostname.slice(4)
+      : `www.${url.hostname}`
+    return url.origin
+  } catch {
+    return undefined
+  }
+}
+
 const trustedOrigins = [
   getServerSideURL(),
+  wwwVariant(getServerSideURL()),
   process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
 ].filter((origin): origin is string => Boolean(origin))
 
