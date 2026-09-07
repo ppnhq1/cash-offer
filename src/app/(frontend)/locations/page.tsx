@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import Link from 'next/link'
-import { MapPin, MoveRight } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import React from 'react'
 
 import { getCachedGlobal } from '@/utilities/getGlobals'
@@ -57,7 +57,7 @@ export default async function LocationsHubPage() {
             >
               <div className="card-body">
                 <div className="mb-2 flex size-10 items-center justify-center rounded-full bg-primary/15 text-primary transition-transform duration-300 group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100">
-                  <MapPin className="size-5" aria-hidden="true" />
+                  <Icon icon="lucide:map-pin" className="size-5" aria-hidden="true" />
                 </div>
                 <h2 className="card-title text-lg">
                   {location.cityName}, {location.stateAbbr}
@@ -67,7 +67,7 @@ export default async function LocationsHubPage() {
                 )}
                 <span className="mt-1 flex items-center gap-1 text-sm font-semibold text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:opacity-100">
                   View details
-                  <MoveRight className="size-4" aria-hidden="true" />
+                  <Icon icon="lucide:move-right" className="size-4" aria-hidden="true" />
                 </span>
               </div>
             </Link>

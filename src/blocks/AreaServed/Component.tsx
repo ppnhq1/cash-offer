@@ -1,5 +1,5 @@
 import React from 'react'
-import { MapPin } from 'lucide-react'
+import { Icon } from '@iconify/react'
 
 import type { AreaServedBlock as AreaServedBlockProps } from '@/payload-types'
 
@@ -32,7 +32,7 @@ export const AreaServedBlock: React.FC<AreaServedBlockProps> = async ({
             <ul className="mt-6 flex flex-wrap gap-2">
               {areas.map((area, index) => (
                 <li key={index} className="badge badge-outline badge-lg gap-1.5">
-                  <MapPin className="size-3.5" aria-hidden="true" />
+                  <Icon icon="lucide:map-pin" className="size-3.5" aria-hidden="true" />
                   {area.name}
                 </li>
               ))}

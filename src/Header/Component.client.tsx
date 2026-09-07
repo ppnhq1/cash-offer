@@ -2,7 +2,7 @@
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, Phone, X } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import React, { useEffect, useState } from 'react'
 
 import type { Header } from '@/payload-types'
@@ -62,7 +62,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
             <div className="container mx-auto flex items-center justify-end gap-6 px-4 py-1.5 text-sm">
               {telHref && (
                 <a className="link link-hover flex items-center gap-1.5 font-semibold" href={telHref}>
-                  <Phone className="size-3.5" aria-hidden="true" />
+                  <Icon icon="lucide:phone" className="size-3.5" aria-hidden="true" />
                   Call Us {phone}
                 </a>
               )}
@@ -84,7 +84,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
                     className="btn btn-ghost btn-lg gap-2 px-2 text-base font-bold sm:px-4"
                     href={telHref}
                   >
-                    <Phone className="size-5 shrink-0" aria-hidden="true" />
+                    <Icon icon="lucide:phone" className="size-5 shrink-0" aria-hidden="true" />
                     <span className="hidden sm:inline">{phone}</span>
                   </a>
                 )}
@@ -93,7 +93,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
                   aria-label="Open menu"
                   className="btn btn-square btn-ghost btn-lg drawer-button"
                 >
-                  <Menu className="size-6" aria-hidden="true" />
+                  <Icon icon="lucide:menu" className="size-6" aria-hidden="true" />
                 </label>
               </div>
             </div>
@@ -105,7 +105,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
             <div className="hidden shrink-0 items-center gap-2 lg:flex">
               {telHref && (
                 <a className="btn btn-ghost btn-lg gap-2 px-2 text-base font-bold sm:px-4" href={telHref}>
-                  <Phone className="size-5 shrink-0" aria-hidden="true" />
+                  <Icon icon="lucide:phone" className="size-5 shrink-0" aria-hidden="true" />
                   <span>{phone}</span>
                 </a>
               )}
@@ -131,7 +131,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
               aria-label="Close menu"
               className="btn btn-square btn-ghost btn-sm"
             >
-              <X className="size-5" aria-hidden="true" />
+              <Icon icon="lucide:x" className="size-5" aria-hidden="true" />
             </label>
           </div>
 
@@ -147,7 +147,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
               className="btn btn-ghost btn-lg justify-start gap-2 text-base font-bold"
               href={telHref}
             >
-              <Phone className="size-5 shrink-0" aria-hidden="true" />
+              <Icon icon="lucide:phone" className="size-5 shrink-0" aria-hidden="true" />
               {phone}
             </a>
           )}
