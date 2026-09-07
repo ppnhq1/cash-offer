@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { MapPin, ShieldCheck } from 'lucide-react'
+import { Icon } from '@iconify/react'
 
 import { useBusiness } from '@/providers/Business'
 import { formatPhoneDisplay, normalizePhoneDigits, phoneDigitsToStored } from '@/utilities/formatPhone'
@@ -38,7 +38,7 @@ const AddressSuggestions: React.FC<{
               onSelect(suggestion)
             }}
           >
-            <MapPin className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+            <Icon icon="lucide:map-pin" className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
             {suggestion.placePrediction?.text.text}
           </button>
         </li>
@@ -466,7 +466,7 @@ export const LeadCaptureCard: React.FC<Props> = ({
 
   const formBody = hasSubmitted ? (
     <div className="py-6 text-center">
-      <ShieldCheck className="mx-auto mb-3 size-10 text-success" aria-hidden="true" />
+      <Icon icon="lucide:shield-check" className="mx-auto mb-3 size-10 text-success" aria-hidden="true" />
       <h2 className="text-xl font-bold">Thank you!</h2>
       <p className="mt-2 text-base-content/80">
         We received your info and will call you within 24 hours with your cash offer.

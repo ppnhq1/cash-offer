@@ -1,5 +1,5 @@
 import React from 'react'
-import { Check } from 'lucide-react'
+import { Icon } from '@iconify/react'
 
 import type { Location } from '@/payload-types'
 
@@ -117,7 +117,7 @@ export const LocationTemplate: React.FC<{ location: Location; phone?: string | n
               <ul className="mt-6 space-y-2">
                 {sellReasons?.map((reason, i) => (
                   <li key={i} className="flex items-center gap-2 text-lg">
-                    <Check className="size-5 shrink-0 text-success" aria-hidden="true" />
+                    <Icon icon="lucide:check" className="size-5 shrink-0 text-success" aria-hidden="true" />
                     {reason.text}
                   </li>
                 ))}
@@ -191,7 +191,7 @@ export const LocationTemplate: React.FC<{ location: Location; phone?: string | n
                   <ul className="mt-2 space-y-1.5">
                     {(group.items || []).map((item, j) => (
                       <li key={j} className="flex items-start gap-2 text-base-content/80">
-                        <Check className="mt-1 size-4 shrink-0 text-success" aria-hidden="true" />
+                        <Icon icon="lucide:check" className="mt-1 size-4 shrink-0 text-success" aria-hidden="true" />
                         {item.text}
                       </li>
                     ))}

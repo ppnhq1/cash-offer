@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { ShieldCheck } from 'lucide-react'
+import { Icon } from '@iconify/react'
 
 import type { Page } from '@/payload-types'
 
@@ -19,7 +19,7 @@ export const LeadCaptureHero: React.FC<LeadCaptureHeroType> = ({ richText, badge
         <div className="min-w-0 flex-1 text-center motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-700 motion-safe:fill-mode-both lg:text-left">
           {badgeText && (
             <div className="badge badge-lg badge-soft mb-5 gap-2 py-4">
-              <ShieldCheck className="size-4" aria-hidden="true" />
+              <Icon icon="lucide:shield-check" className="size-4" aria-hidden="true" />
               {badgeText}
             </div>
           )}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Check, X } from 'lucide-react'
+import { Icon } from '@iconify/react'
 
 import type { ComparisonTableBlock as ComparisonTableBlockProps } from '@/payload-types'
 
@@ -23,11 +23,11 @@ export const ComparisonTableBlock: React.FC<ComparisonTableBlockProps> = ({
             <tr>
               <th></th>
               <th className="text-base font-bold text-primary">
-                <Check className="mr-1 inline size-4" aria-hidden="true" />
+                <Icon icon="lucide:check" className="mr-1 inline size-4" aria-hidden="true" />
                 {ourColumnLabel}
               </th>
               <th className="text-base font-bold text-base-content/70">
-                <X className="mr-1 inline size-4" aria-hidden="true" />
+                <Icon icon="lucide:x" className="mr-1 inline size-4" aria-hidden="true" />
                 {agentColumnLabel}
               </th>
             </tr>

@@ -1,6 +1,6 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import Link from 'next/link'
-import { MapPin, Phone } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import React from 'react'
 
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
@@ -33,7 +33,7 @@ export async function Footer() {
           <h6 className="footer-title opacity-70">Contact Us</h6>
           {telHref && business?.telephone && (
             <a className="link link-hover flex items-center gap-2 text-lg font-bold" href={telHref}>
-              <Phone className="size-5" aria-hidden="true" />
+              <Icon icon="lucide:phone" className="size-5" aria-hidden="true" />
               {business.telephone}
             </a>
           )}
@@ -44,7 +44,7 @@ export async function Footer() {
           )}
           {business?.streetAddress && (
             <p className="mt-1 flex items-start gap-2 text-sm opacity-90">
-              <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+              <Icon icon="lucide:map-pin" className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
               <span>
                 {business.streetAddress}
                 <br />

@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { ChevronDown, MapPin, MoveRight } from 'lucide-react'
+import { Icon } from '@iconify/react'
 
 import type { LocationNavItem } from '@/utilities/getLocationsNav'
 
@@ -22,7 +22,7 @@ const MegaMenuPanel: React.FC<{ locations: LocationNavItem[] }> = ({ locations }
             href={`/locations/${location.slug}`}
             className="flex items-center gap-2 rounded-field px-2 py-2 text-base font-semibold text-base-content hover:bg-base-200"
           >
-            <MapPin className="size-4 shrink-0 text-primary" aria-hidden="true" />
+            <Icon icon="lucide:map-pin" className="size-4 shrink-0 text-primary" aria-hidden="true" />
             {location.cityName}, {location.stateAbbr}
           </Link>
         </li>
@@ -34,7 +34,7 @@ const MegaMenuPanel: React.FC<{ locations: LocationNavItem[] }> = ({ locations }
         className="link link-hover flex items-center gap-1.5 font-semibold text-primary"
       >
         View All Locations
-        <MoveRight className="size-4" aria-hidden="true" />
+        <Icon icon="lucide:move-right" className="size-4" aria-hidden="true" />
       </Link>
     </div>
   </div>
@@ -62,7 +62,7 @@ export const LocationsMegaMenu: React.FC<Props> = ({ label, locations, instanceI
             {locations.map((location) => (
               <li key={location.slug}>
                 <Link href={`/locations/${location.slug}`} className="flex items-center gap-2">
-                  <MapPin className="size-4 shrink-0 text-primary" aria-hidden="true" />
+                  <Icon icon="lucide:map-pin" className="size-4 shrink-0 text-primary" aria-hidden="true" />
                   {location.cityName}, {location.stateAbbr}
                 </Link>
               </li>
@@ -73,7 +73,7 @@ export const LocationsMegaMenu: React.FC<Props> = ({ label, locations, instanceI
                 className="flex items-center gap-1.5 font-semibold text-primary"
               >
                 View All Locations
-                <MoveRight className="size-4" aria-hidden="true" />
+                <Icon icon="lucide:move-right" className="size-4" aria-hidden="true" />
               </Link>
             </li>
           </ul>
@@ -90,7 +90,7 @@ export const LocationsMegaMenu: React.FC<Props> = ({ label, locations, instanceI
         popoverTarget="locations-megamenu-desktop"
       >
         {label}
-        <ChevronDown className="size-4" aria-hidden="true" />
+        <Icon icon="lucide:chevron-down" className="size-4" aria-hidden="true" />
       </button>
 
       <div

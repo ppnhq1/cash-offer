@@ -16,6 +16,68 @@ function fieldValue(doc: FormSubmission, name: string): string | undefined {
 }
 
 /**
+ * Reports the lead to the separate CRM app so sales reps can work it there.
+ * Best-effort and non-blocking — the CRM has its own database, independent
+ * of Payload, so this is a plain HTTP call rather than a shared read. If
+ * CRM_INGEST_URL isn't configured (e.g. local dev without the CRM running),
+ * this just no-ops rather than erroring.
+ *
+ * The lead-capture form doesn't collect a name, so the property address
+ * (the one piece of data that actually identifies the lead) is used as a
+ * placeholder — reps rename it once they've spoken to the person.
+ *
+ * Duplicates the exact wording sendLeadSms.ts sends, so the CRM's message
+ * thread shows what the lead actually received — keep the two in sync if
+ * that copy ever changes.
+ */
+async function reportLeadToCrm({
+  address,
+  phone,
+  email,
+  doc,
+  smsConsent,
+  businessName,
+}: {
+  address: string
+  phone: string
+  email: string
+  doc: FormSubmission
+  smsConsent: string | undefined
+  businessName: string
+}): Promise<void> {
+  const ingestUrl = process.env.CRM_INGEST_URL
+  const secret = process.env.CRM_INGEST_SECRET
+  if (!ingestUrl || !secret) return
+
+  const smsWasSent = String(smsConsent) === 'true'
+
+  const res = await fetch(ingestUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${secret}`,
+    },
+    body: JSON.stringify({
+      fullName: address,
+      phone,
+      email,
+      propertyAddress: address,
+      sourceSubmissionId: String(doc.id),
+      smsConsent: smsWasSent,
+      autoSms: smsWasSent
+        ? {
+            body: `Thanks for contacting ${businessName}! A member of our team will call you soon with your cash offer. Reply STOP to opt out.`,
+          }
+        : undefined,
+    }),
+  })
+
+  if (!res.ok) {
+    throw new Error(`CRM ingest returned ${res.status}: ${await res.text()}`)
+  }
+}
+
+/**
  * Fires the lead-confirmation SMS and welcome/notification emails whenever
  * a lead-capture submission (one with both `phone` and `email` fields) is
  * saved. This is the *only* place these sends are triggered from — there
@@ -90,6 +152,10 @@ export const notifyLead: CollectionAfterChangeHook<FormSubmission> = ({
         telephone: business?.telephone,
       }).catch((err) => {
         payload.logger.error({ err }, 'notifyLead: email send failed.')
+      })
+
+      await reportLeadToCrm({ address, phone, email, doc, smsConsent, businessName }).catch((err) => {
+        payload.logger.error({ err }, 'notifyLead: CRM ingest failed.')
       })
 
       payload.logger.info(`notifyLead: finished notifications for submission ${doc.id}.`)

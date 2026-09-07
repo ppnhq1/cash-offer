@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChevronRight } from 'lucide-react'
+import { Icon } from '@iconify/react'
 
 import type { HowItWorksBlock as HowItWorksBlockProps } from '@/payload-types'
 
@@ -53,7 +53,7 @@ const NumberedLayout: React.FC<{ steps: NonNullable<HowItWorksBlockProps['steps'
             className="absolute top-8 -left-4 hidden -translate-x-1/2 items-center justify-center rounded-full bg-primary text-primary-content md:flex"
             aria-hidden="true"
           >
-            <ChevronRight className="size-5" />
+            <Icon icon="lucide:chevron-right" className="size-5" />
           </span>
         )}
         <span
